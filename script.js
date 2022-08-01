@@ -7,8 +7,6 @@ const playerImage = new Image();
 playerImage.src = 'shadow_dog.png';
 const spriteWidth = 575;
 const spriteHeight = 523;
-let frameX = 0;
-let frameY = 5;
 let gameFrame = 0;
 const staggerFrames = 5;
 const spriteAnimations = [];
@@ -33,12 +31,13 @@ animationStates.forEach((state,index) => {
     }
     spriteAnimations[state.name] = frames; 
 });
-console.log(animationStates);
+console.log(spriteAnimations);
 
 function animate(){
     ctx.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
-    let position = Math.floor(gameFrame/staggeredFrames) % 4;
-    frameX = spriteWidth * position;
+    let position = Math.floor(gameFrame/staggerFrames) % spriteAnimations["idle"].loc.length;
+    let frameX = spriteWidth * position;
+    let frameY = spriteAnimations["jump"].loc[position];
     ctx.drawImage(playerImage,frameX * spriteWidth,frameY * spriteHeight,spriteWidth,spriteHeight,0,0,spriteWidth, spriteHeight);
 
     gameFrame++;
